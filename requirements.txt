@@ -1,0 +1,11 @@
+streamlit==1.38.0
+llama-index==0.10.12
+ollama==0.3.3
+transformers==4.45.1
+scikit-learn==1.5.2
+nltk==3.8.1
+requests==2.32.3
+python-dotenv==1.0.1
+numpy==1.26.4
+scipy==1.14.1
+matplotlib==3.9.2

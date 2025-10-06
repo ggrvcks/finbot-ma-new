@@ -20,8 +20,3 @@ class IntentDetector:
             intent = "economic_data" if confidence > 0.3 else intent
             confidence = max(confidence, 0.4)
         return intent, confidence
-
-# Example usage (uncomment to test)
-# detector = IntentDetector()
-# intent, confidence = detector.detect("What is the inflation rate in Morocco?")
-# print(f"Detected intent: {intent}, Confidence: {confidence}")

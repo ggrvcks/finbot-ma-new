@@ -9,16 +9,19 @@ class IntentDetector:
             model="facebook/bart-large-mnli",
             device=0 if torch.cuda.is_available() else -1
         )
-        self.intents = ["financial_advice", "risk_analysis", "account_query", "general_info"]
+        self.intents = ["financial_advice", "risk_analysis", "account_query", "general_info", "economic_data"]
 
     def detect(self, text):
         result = self.classifier(text, self.intents)
         intent = result['labels'][0]
         confidence = result['scores'][0]
-        # Lower threshold to 0.4 for testing
-        return intent, max(confidence, 0.4) if confidence < 0.6 else confidence
+        # Boost confidence for economic terms
+        if "inflation" in text.lower() or "rate" in text.lower():
+            intent = "economic_data" if confidence > 0.3 else intent
+            confidence = max(confidence, 0.4)
+        return intent, confidence
 
 # Example usage (uncomment to test)
 # detector = IntentDetector()
-# intent, confidence = detector.detect("What is my account balance?")
+# intent, confidence = detector.detect("What is the inflation rate in Morocco?")
 # print(f"Detected intent: {intent}, Confidence: {confidence}")
